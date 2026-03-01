@@ -1,0 +1,41 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: monitoring-service
+          uri: lb://MONITORING-SERVICE
+          predicates:
+            - Path=/api/monitoring/**
+
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: sentinel-gateway-client
+            client-secret: yjFuqB5OZ33Fr12fViHJPZyCrOEOw88d
+            authorization-grant-type: authorization_code
+            scope: openid, profile, email
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/sentinel-dev
+
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/sentinel-dev
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
