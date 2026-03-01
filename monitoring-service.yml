@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
   application:
@@ -7,6 +7,13 @@ spring:
 
   config:
     import: "optional:configserver:http://localhost:8888"
+
+  # --- SECURITY (Custom JWT) ---
+  jwt:
+    secret: 8a42b1f8e12a0f8b8a42b1f8e12a0f8b8a42b1f8e12a0f8b8a42b1f8e12a0f8b
+    expiration: 86400000 # 24 hours
+  google:
+    client-id: 1060072948697-j6li3s391ttc0k4fhpalqfbshl514kfl.apps.googleusercontent.com
 
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/uptime_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true

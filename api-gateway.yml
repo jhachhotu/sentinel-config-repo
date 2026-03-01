@@ -1,5 +1,5 @@
 server:
-  port: 9090
+  port: 8081
 
 spring:
   application:
@@ -13,23 +13,7 @@ spring:
           predicates:
             - Path=/api/monitoring/**
 
-  security:
-    oauth2:
-      client:
-        registration:
-          keycloak:
-            provider: keycloak
-            client-id: sentinel-gateway-client
-            client-secret: yjFuqB5OZ33Fr12fViHJPZyCrOEOw88d
-            authorization-grant-type: authorization_code
-            scope: openid, profile, email
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8080/realms/sentinel-dev
-
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/realms/sentinel-dev
+  # Security properties have been removed for stateless routing proxy
 
 eureka:
   instance:
