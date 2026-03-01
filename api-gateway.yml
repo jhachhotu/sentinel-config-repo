@@ -7,13 +7,23 @@ spring:
 
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
       routes:
         - id: monitoring-service
           uri: lb://MONITORING-SERVICE
           predicates:
             - Path=/api/monitoring/**
-
-  # Security properties have been removed for stateless routing proxy
 
 eureka:
   instance:
