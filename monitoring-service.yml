@@ -6,18 +6,29 @@ spring:
     name: monitoring-service
 
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: ${DATABASE_DRIVER}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
 
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: false
     properties:
       hibernate:
-        dialect: ${HIBERNATE_DIALECT}
+        dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 jwt:
   secret: ${JWT_SECRET}
@@ -30,6 +41,5 @@ eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_URL}
-
   instance:
     prefer-ip-address: true
