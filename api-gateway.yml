@@ -7,11 +7,6 @@ spring:
 
   cloud:
     gateway:
-      routes:
-        - id: monitoring-service
-          uri: lb://MONITORING-SERVICE
-          predicates:
-            - Path=/api/monitoring/**
 
       globalcors:
         add-to-simple-url-handler-mapping: true
@@ -27,6 +22,12 @@ spring:
               - OPTIONS
             allowedHeaders: "*"
             allowCredentials: true
+
+      routes:
+        - id: monitoring-service
+          uri: lb://MONITORING-SERVICE
+          predicates:
+            - Path=/api/monitoring/**
 
 eureka:
   client:
