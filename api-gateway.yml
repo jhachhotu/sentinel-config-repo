@@ -7,6 +7,22 @@ spring:
 
   cloud:
     gateway:
+
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "https://client-uptime-frontend.vercel.app"
+              - "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+
       routes:
         - id: monitoring-service
           uri: lb://MONITORING-SERVICE
