@@ -25,7 +25,7 @@ spring:
 
       routes:
         - id: monitoring-service
-          uri: lb://MONITORING-SERVICE
+          uri: https://sentinel-monitoring-latest.onrender.com
           predicates:
             - Path=/api/monitoring/**
           filters:
