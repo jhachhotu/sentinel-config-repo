@@ -12,8 +12,9 @@ spring:
         add-to-simple-url-handler-mapping: true
         corsConfigurations:
           '[/**]':
-            allowedOrigins:
+            allowedOriginPatterns:
               - https://client-uptime-frontend.vercel.app
+              - https://*.vercel.app
             allowedMethods:
               - GET
               - POST
