@@ -28,6 +28,8 @@ spring:
           uri: lb://MONITORING-SERVICE
           predicates:
             - Path=/api/monitoring/**
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
 
 eureka:
   client:
