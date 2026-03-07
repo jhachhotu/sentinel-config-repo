@@ -1,26 +1,17 @@
-server:
-  port: ${PORT}
-
 spring:
   application:
     name: api-gateway
-
   cloud:
     gateway:
-
       globalcors:
         add-to-simple-url-handler-mapping: true
         corsConfigurations:
           '[/**]':
             allowedOriginPatterns:
-              - https://client-uptime-frontend.vercel.app
-              - https://*.vercel.app
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - OPTIONS
+              - "https://client-uptime-frontend.vercel.app"
+              - "https://*.vercel.app"
+              - "http://localhost:5173"
+            allowedMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
             allowedHeaders: "*"
             allowCredentials: true
 
@@ -30,12 +21,21 @@ spring:
           predicates:
             - Path=/api/monitoring/**
           filters:
+            # 1. CRITICAL: Pass the Google Token to the backend
+            - TokenRelay=
+            # 2. Prevent CORS Header duplication
             - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+            # 3. Ensure HTTPS is preserved across Render services
+            - PreserveHostHeader
+
+# 4. Handle the "403" caused by CSRF and Cookie Mismatch
+server:
+  forward-headers-strategy: framework # Tells Spring to trust the Render HTTPS proxy
+  port: ${PORT:8080}
+  netty:
+    connection-timeout: 10s
 
 eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_URL}
-
-  instance:
-    prefer-ip-address: true
