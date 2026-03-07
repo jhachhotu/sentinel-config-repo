@@ -1,6 +1,24 @@
 spring:
   application:
     name: api-gateway
+
+  # --- ADD THIS SECTION ---
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+        provider:
+          google:
+            issuer-uri: https://accounts.google.com
+  # ------------------------
+
   cloud:
     gateway:
       globalcors:
@@ -21,16 +39,12 @@ spring:
           predicates:
             - Path=/api/monitoring/**
           filters:
-            # 1. CRITICAL: Pass the Google Token to the backend
             - TokenRelay=
-            # 2. Prevent CORS Header duplication
             - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
-            # 3. Ensure HTTPS is preserved across Render services
             - PreserveHostHeader
 
-# 4. Handle the "403" caused by CSRF and Cookie Mismatch
 server:
-  forward-headers-strategy: framework # Tells Spring to trust the Render HTTPS proxy
+  forward-headers-strategy: framework
   port: ${PORT:8080}
   netty:
     connection-timeout: 10s
