@@ -38,6 +38,10 @@ spring:
           uri: https://sentinel-monitoring-latest.onrender.com
           predicates:
             - Path=/api/monitoring/**
+            # ADD THIS LINE: Tell the Gateway NOT to forward auth requests to the backend
+            - "Header=X-Skip-Proxy, .*"
+            # OR better, use a negative lookahead in the path if your version supports it,
+            # but the simplest fix is to ensure the Security Filter takes priority.
           filters:
             - TokenRelay=
             - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
