@@ -1,3 +1,8 @@
+server:
+  address: 0.0.0.0
+  port: ${PORT:10000}
+  forward-headers-strategy: framework
+
 spring:
   application:
     name: monitoring-service
@@ -37,4 +42,4 @@ stripe:
   api:
     key: ${STRIPE_API_KEY:}
   webhook:
-    secret: ${STRIPE_WEBHOOK_SECRET:}
+    secret: ${STRIPE_WEBHOOK_SECRET:}
