@@ -35,7 +35,8 @@ eureka:
     fetch-registry: true
 
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: false
+    hostname: ${RENDER_EXTERNAL_HOSTNAME:localhost}
     instance-id: ${spring.application.name}:${random.value}
 
 stripe:
