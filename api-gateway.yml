@@ -35,3 +35,13 @@ eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_URL}
+    register-with-eureka: true
+    fetch-registry: true
+
+  instance:
+    prefer-ip-address: false
+    hostname: ${RENDER_EXTERNAL_HOSTNAME:localhost}
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    secure-port: 443
+    instance-id: ${spring.application.name}:${random.value}
