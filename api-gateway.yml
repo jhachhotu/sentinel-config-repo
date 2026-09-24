@@ -23,7 +23,6 @@ spring:
             - Path=/api/monitoring/**
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
-            - PreserveHostHeader
 
 server:
   forward-headers-strategy: framework
